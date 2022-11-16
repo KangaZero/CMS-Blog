@@ -40,14 +40,14 @@ User.init(
         isAlphanumeric: true,
       },
     },
-    post_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'blog_post',
-            key: 'id',
-        },
-    },
+    // post_id: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: true,
+    //     references: {
+    //         model: 'blog_post',
+    //         key: 'id',
+    //     },
+    // },
   },
   {
     hooks: {

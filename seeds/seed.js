@@ -1,30 +1,27 @@
 const sequelize = require('../config/connection');
-const { PetAds, Category, User } = require('../models');
+//Models included just in case and for convenience
+const { User, BlogPost, Comment } = require('../models');
 
-const seedPetAds = require('./petAdSeed.js');
-const seedCategories = require('./categorySeed');
 const seedUsers = require('./userSeed');
-const seedSavedPetsTag = require('./savedPetsTagSeed');
+const seedBlogPosts = require('./blogPostSeed');
+const seedComments = require('./commentSeed');
+
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
   console.log('\n----- DATABASE SYNCED -----\n');
 
-  await seedCategories();
-
-  console.log('\n----- Categories SEEDED -----\n');
-
   await seedUsers();
 
   console.log('\n----- Users SEEDED-----\n');
 
-  await seedPetAds();
+  await seedBlogPosts();
 
-  console.log('\n----- Pet Ads SEEDED-----\n');
+  console.log('\n----- Blog Posts SEEDED-----\n');
 
-  await seedSavedPetsTag();
+  await seedComments();
 
-  console.log('\n----- Saved Pets Tag SEEDED-----\n');
+  console.log('\n----- Comments SEEDED-----\n');
 
   process.exit(0);
 
