@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
- "engines": {
+  "engines": {
     "node": "16.18.0",
     "npm": "8.19.2"
   },
@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.4.0",
     "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.3",
     "flowbite": "^1.5.3",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"
