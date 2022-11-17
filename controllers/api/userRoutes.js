@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
     }
   });
   
-  //Update routes
+  //Update route
 router.put('/:id', async (req, res) => {
     try {
       const updateUser = await User.update(
@@ -82,7 +82,6 @@ router.put('/:id', async (req, res) => {
       if (!updateUser) {
         return res.status(404).json({ message: 'No such user found!' });
       } else {
-        //TODO test
         res.status(200).json(updateUser)
       }
     } catch (err) {
@@ -102,8 +101,7 @@ router.delete('/:id', async (req, res) => {
       if (!deleteUser) {
         return res.status(404).json({ message: 'No such user found!' });
       } else {
-        //TODO test
-        res.status(200).json(deleteUser)
+           res.status(200).json(deleteUser)
       }
     } catch (err) {
       res.status(500).json(err);
