@@ -1,14 +1,24 @@
 const router = require('express').Router();
-const { PetAds, Category, User, SavedPetsTag } = require('../models');
+const { User, BlogPost, Comment  } = require('../models');
 const withAuth = require('../utils/auth');
 
 
 router.get('/', async (req, res) => {
     try {
 
+        const blogPostData = await BlogPost.findAll({
+            include:[ 
+                { model: Comment, include: { model: User, attributes: { exclude: ['password'] } } }, 
+                { model: User, attributes: { exclude: ['password'] } }
+            ]
+        })
+
+        const blogPosts = blogPostData.map(data => data.get({ plain: true }));
+
+        console.log(blogPosts)
 
     res.render('homepage', {
-       
+        blogPosts,
         logged_in: req.session.logged_in
         });
 
@@ -27,7 +37,7 @@ router.get('/profile', async (req, res) => {
 
 
   //TODO Edit
-router.get('/profile/:id', withAuth, async (req, res) => {
+router.get('/profile/:id', async (req, res) => {
     try {
       // Find the logged in user based on the session ID
       const userData = await User.findByPk(req.params.id, {
@@ -49,7 +59,6 @@ router.get('/profile/:id', withAuth, async (req, res) => {
       res.render('profile', {
         user,
         userPetAds,
-        currentUserId: req.session.user_id,
         logged_in: req.session.logged_in,
         user_id: req.session.user_id
       });

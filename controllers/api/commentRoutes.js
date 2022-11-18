@@ -2,21 +2,19 @@ const router = require('express').Router();
 const { User, BlogPost, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
 //Get routes
 router.get('/', async (req, res) => {
     try {
-      const blogPostData = await BlogPost.findAll({
-        //includes comments on post along with their associated creator(user)
-        //And includes creator(user) of blogPost
+      const commentData = await Comment.findAll({
         include:[ 
-            { model: Comment, include: { model: User, attributes: { exclude: ['password'] } } }, 
             { model: User, attributes: { exclude: ['password'] } }
         ]
       });
       
       req.session.save(() => {
-        // req.session.current_view_pet_id = blogPostData.id
-        res.status(200).json(blogPostData);
+        // req.session.current_view_pet_id = commentData.id
+        res.status(200).json(commentData);
       });
     } catch (err) {
       res.status(500).json(err);
@@ -25,40 +23,37 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-      const blogPostData = await BlogPost.findByPk(req.params.id,{
-        //includes comments on post along with their associated creator(user)
-        //And includes creator(user) of blogPost
+      const commentDatabyId = await Comment.findByPk(req.params.id,{
         include:[ 
-            { model: Comment, include: { model: User, attributes: { exclude: ['password'] } } }, 
             { model: User, attributes: { exclude: ['password'] } }
         ]
       });
       
       req.session.save(() => {
-        req.session.current_blog_post_id = blogPostData.id
-        res.status(200).json(blogPostData);
+        req.session.comment_id = commentDatabyId.id;
+        res.status(200).json(commentDatabyId);
       });
     } catch (err) {
       res.status(500).json(err);
     }
   });
 
-
-//Post route
+  //Post route
 router.post('/', async (req, res) => {
     try {
-        const newBlogPost = await BlogPost.create({
+        const newComment = await Comment.create({
         //Users can only add content for security reasons
           content: req.body.content,
-          title: req.body.title,
+        //TODO add req.session.current_blog_post_id
+          blog_id: 1,
           //TODO test on website
           user_id: 1
         //    req.session.user_id,
         });
         //added for when user wants to put an image for said petAd
         req.session.save(() => {
-          req.session.blog_post_id = newBlogPost.id;
-          res.status(200).json(newBlogPost);
+          req.session.comment_id = newComment.id;
+          res.status(200).json(newComment);
         });
     } catch (err) {
       res.status(500).json(err);
@@ -68,24 +63,25 @@ router.post('/', async (req, res) => {
 //Update route
 router.put('/:id', async (req, res) => {
     try {
-        const updateBlogPost = await BlogPost.update(
+        const updateComment = await Comment.update(
             {
                 //Users can only edit content for security reasons
                 content: req.body.content,
-                title: req.body.title,
             },
             {
             where: {
                 id: req.params.id,
                 //TODO replace with session
+                // req.session.comment_id
                 // user_id: req.session.user_id
+
                 }
             },
         );
-        if (!updateBlogPost) {
-            return res.status(404).json({ message: 'No such post found!' });
+        if (!updateComment) {
+            return res.status(404).json({ message: 'No such comment found!' });
           } else {
-            res.status(200).json(updateBlogPost)
+            res.status(200).json(updateComment)
           }
     } catch (err) {
         res.status(500).json(err);
@@ -95,21 +91,22 @@ router.put('/:id', async (req, res) => {
 //Delete route
 router.delete('/:id', async (req, res) => {
     try {
-        const deletePost = await BlogPost.destroy({
+        const deleteComment = await Comment.destroy({
             where: {
               id: req.params.id,
                 // user_id: req.session.user_id
             },
           });
       
-          if (!deletePost) {
-            return res.status(404).json({ message: 'No such post found!' });
+          if (!deleteComment) {
+            return res.status(404).json({ message: 'No such comment found!' });
           } else {
-                res.status(200).json(deletePost)
+                res.status(200).json(deleteComment)
           }
     } catch (err) {
         res.status(500).json(err);
       }
 });
 
-  module.exports = router;
+module.exports = router;
+
