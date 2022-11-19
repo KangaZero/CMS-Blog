@@ -16,14 +16,20 @@ const loginFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/');
     } else {
-      email.value="";
-      password.value="";
 
-      email.placeholder = 'Invalid';
-      email.classList.add('border-rose-700');
+      const emailEl = document.querySelector('#email-login');
+      const passwordEl = document.querySelector('#password-login');
 
-      password.placeholder = 'Invalid';
-      password.classList.add('border-rose-700');
+      passwordEl.value="";
+      passwordEl.value="";
+
+      passwordEl.placeholder = 'Invalid';
+      passwordEl.classList.remove('border-gray-300');
+      passwordEl.classList.add('border-rose-700');
+
+      emailEl.placeholder = 'Invalid';
+      emailEl.classList.remove('border-gray-300');
+      emailEl.classList.add('border-rose-700');
     }
   }
 };

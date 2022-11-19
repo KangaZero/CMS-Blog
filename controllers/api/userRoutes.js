@@ -44,13 +44,13 @@ router.get('/:id', async (req, res) => {
 //for sign up
 router.post('/', async (req, res) => {
     try {
-  
       const postUser = await User.create({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
       });
+
       req.session.save(() => {
         req.session.user_id = postUser.id;
         req.session.logged_in = true;
@@ -126,11 +126,12 @@ router.delete('/:id', async (req, res) => {
         return;
       }
       
-      req.session.save(() => {
+       req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-        res.json({ user: userData, message: 'You are now logged in!', test: req.session.user_id, see: req.session.logged_in});
+        res.status(200).json(userData);
       });
+
     } catch (err) {
       res.status(400).json(err);
     }
