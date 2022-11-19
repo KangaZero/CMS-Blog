@@ -16,7 +16,7 @@
     "heroku-postbuild": "node ./seeds/seed.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Samuel Wai Weng Yong",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
