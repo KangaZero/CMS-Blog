@@ -1,25 +1,26 @@
 <body class="bg-slate-200">
     <div id="hero" class="my-5 bg-slate-200">
     {{#each blogPosts as |post|}}
-        <div id="posts" class="flex flex-col bg-gradient-to-t from-zinc-100 to-zinc-300 text-center my-5 border-2 border-slate-900 border-solid md:w-1/2 md:container-fill mx-auto"> 
+        <div id="posts" class="flex flex-col bg-gradient-to-t from-zinc-100 to-zinc-400 text-center my-5 border-2 border-slate-900 border-solid md:w-1/2 md:container-fill mx-auto"> 
         <div id="title-card" class="flex flex-row justify-around">
-                <h2 id="post-title" class="relative md:right-16 text-3xl"><strong>{{post.title}}</strong>
+                <h2 id="post-title" class="text-left text-3xl"><strong>{{post.title}}</strong>
                     {{#ifEquals post.user.id user_id}}
                        {{!-- <?xml version="1.0" ?><svg width="24px" height="24px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><style>.a{fill:#ffed09;}.a,.b{stroke:#d38509;stroke-linejoin:round;}.a,.b,.d{stroke-linecap:round;stroke-width:2px;}.b,.d{fill:none;}.c{fill:#f7f8f9;}.d{stroke:#1c1c1c;stroke-miterlimit:10;}.e{fill:#f5003c;}</style></defs><title/><circle class="a" cx="32" cy="32" r="20"/><line class="b" x1="32" x2="32" y1="9" y2="2"/><line class="b" x1="20.5" x2="17" y1="12.08" y2="6.02"/><line class="b" x1="12.08" x2="6.02" y1="20.5" y2="17"/><line class="b" x1="9" x2="2" y1="32" y2="32"/><line class="b" x1="12.08" x2="6.02" y1="43.5" y2="47"/><line class="b" x1="20.5" x2="17" y1="51.92" y2="57.98"/><line class="b" x1="32" x2="32" y1="55" y2="62"/><line class="b" x1="43.5" x2="47" y1="51.92" y2="57.98"/><line class="b" x1="51.92" x2="57.98" y1="43.5" y2="47"/><line class="b" x1="55" x2="62" y1="32" y2="32"/><line class="b" x1="51.92" x2="57.98" y1="20.5" y2="17"/><line class="b" x1="43.5" x2="47" y1="12.08" y2="6.02"/><path class="c" d="M25.5,35h13a0,0,0,0,1,0,0v.5A6.5,6.5,0,0,1,32,42h0a6.5,6.5,0,0,1-6.5-6.5V35A0,0,0,0,1,25.5,35Z"/><path class="d" d="M22,27a2,2,0,0,1,4,0"/><path class="d" d="M38,27a2,2,0,0,1,4,0"/><ellipse class="e" cx="19.5" cy="33" rx="4.5" ry="2"/><ellipse class="e" cx="44.5" cy="33" rx="4.5" ry="2"/></svg> --}}
                     {{/ifEquals}}
                 </h2>
              
-                <span id="user" class="relative md:left-20">
-                    Posted by: {{post.user.first_name}} {{post.user.last_name}} 
-                </span>
+       
         </div>
                     <hr class="my-2 border-2 border-slate-900 border-solid">
-                <div id="content-card" class="pb-5">
+                <div id="content-card" class="pb-5 my-5">
                     <p id="post-content">{{post.content}}</p>
                 </div>
                     <hr class="my-2 border-2 border-slate-900 border-solid">
-                <div id="time-card" class="pb-5 px-2 text-end">
-                    <p id="timestap">Posted on: {{{format_date post.date_created}}} </p>
+                <div id="about-card" class="flex flex-row justify-around pb-5 px-2">
+                    <p id="user" class="text-start">
+                                Posted by: {{post.user.first_name}} {{post.user.last_name}} 
+                    </p>
+                    <p id="about" class="text-right">On: {{{format_date post.date_created}}} </p>
                 </div>
 
         </div>
