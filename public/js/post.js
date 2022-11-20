@@ -14,7 +14,8 @@ event.preventDefault();
         });
 
         if(response.ok) {
-            document.location.replace('/')
+            const toast = document.querySelector('#post-toast')
+            toast.classList.remove('hidden')
         }
     }
 }
