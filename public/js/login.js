@@ -1,4 +1,4 @@
-const loginFormHandler = async (event) => {
+const login = async (event) => {
   event.preventDefault();
 
   // Collect values from the login form
@@ -20,8 +20,8 @@ const loginFormHandler = async (event) => {
       const emailEl = document.querySelector('#email-login');
       const passwordEl = document.querySelector('#password-login');
 
-      passwordEl.value="";
-      passwordEl.value="";
+      passwordEl.value='';
+      passwordEl.value='';
 
       passwordEl.placeholder = 'Invalid';
       passwordEl.classList.remove('border-gray-300');
@@ -37,5 +37,5 @@ const loginFormHandler = async (event) => {
 
 document
   .querySelector('#login-form')
-  .addEventListener('submit', loginFormHandler);
+  .addEventListener('submit', login);
 

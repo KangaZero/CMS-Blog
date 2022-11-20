@@ -43,14 +43,25 @@ router.get('/dashboard/:id', withAuth, async (req, res) => {
         attributes: { exclude: ['password'] },
         include: [{ model: BlogPost }, { model: Comment }],
       });
-  
+      
+      // let isUser;
+
       const user = userData.get({ plain: true });
-   
+
+      // if (user.id === req.session.user_id) {
+      //   isUser = true
+      // } else {
+      //   isUser = false
+      // }
+
       res.render('dashboard', {
         user,
+        user_id: req.session.user_id,
+        // isUser,
         logged_in: req.session.logged_in,
-        user_id: req.session.user_id
       });
+ 
+
     } catch (err) {
       res.status(500).json(err);
     }

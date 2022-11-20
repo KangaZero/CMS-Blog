@@ -1,4 +1,4 @@
-const postForm = async (event) => {
+const createPost = async (event) => {
 event.preventDefault();
 
     const title = document.querySelector('#title').value.trim()
@@ -35,4 +35,4 @@ event.preventDefault();
 
 document
     .querySelector('#post-form')
-    .addEventListener('submit', postForm)
+    .addEventListener('submit', createPost)
