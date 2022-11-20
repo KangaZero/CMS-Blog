@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
 
         const blogPostData = await BlogPost.findAll({
             include:[ 
-                { model: Comment, include: { model: User, attributes: { exclude: ['password'] } } }, 
+                // { model: Comment, include: { model: User, attributes: { exclude: ['password'] } } }, 
                 { model: User, attributes: { exclude: ['password'] } }
             ]
         })
@@ -41,7 +41,8 @@ router.get('/dashboard/:id', withAuth, async (req, res) => {
     try {
       const userData = await User.findByPk(req.params.id, {
         attributes: { exclude: ['password'] },
-        include: [{ model: BlogPost }, { model: Comment }],
+        include: [{ model: BlogPost }],
+        // { model: Comment }
       });
       
       // let isUser;
@@ -67,63 +68,60 @@ router.get('/dashboard/:id', withAuth, async (req, res) => {
     }
   });
 
-router.get('/updatepost/:id', withAuth, async (req, res) => {
-    try {
-      const blogPostData = await BlogPost.findByPk(req.params.id, {
-        include: { model: User, attributes: { exclude: ['password'] } },
-      });
+// router.get('/updatepost/:id', withAuth, async (req, res) => {
+//     try {
+//       const blogPostData = await BlogPost.findByPk(req.params.id, {
+//         include: { model: User, attributes: { exclude: ['password'] } },
+//       });
   
-      const blogPost = blogPostData.get({ plain: true });
+//       const blogPost = blogPostData.get({ plain: true });
 
-    //checks to see if the blogPost belongs to current User
-      if(req.session.user_id === blogPost.user_id) {
+//     //checks to see if the blogPost belongs to current User
+//       if(req.session.user_id === blogPost.user_id) {
 
-        req.session.save(() => {
-            req.session.post_id = blogPost.id;
-            res.render('updatepost', {
-                blogPost,
-                logged_in: req.session.logged_in,
-                user_id: req.session.user_id
-            });
-        })
+//         req.session.save(() => {
+//             req.session.post_id = blogPost.id;
+//             res.render('updatepost', {
+//                 blogPost,
+//                 logged_in: req.session.logged_in,
+//                 user_id: req.session.user_id
+//             });
+//         })
         
-    } else {
-        res.redirect('/')
-    }
+//     } else {
+//         res.redirect('/')
+//     }
 
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   });
 
   
-
-
-  //TODO edit
-router.get('/updateprofile', async (req, res) => {
-    try {
+// router.get('/updateprofile', async (req, res) => {
+//     try {
   
-      const userData = await User.findOne({
-        attributes: { exclude: ['password'] },
-        where: {
-          id: req.session.user_id
-        }
-      })
+//       const userData = await User.findOne({
+//         attributes: { exclude: ['password'] },
+//         where: {
+//           id: req.session.user_id
+//         }
+//       })
   
-      if (!userData) {
-        res.status(404).json({ message: "User not found!" })
-      }
+//       if (!userData) {
+//         res.status(404).json({ message: "User not found!" })
+//       }
   
-      const user = userData.get({ plain: true });
+//       const user = userData.get({ plain: true });
   
-    res.render('updateProfile', {
-      user,
-      logged_in: req.session.logged_in,
-    })
-  } catch(err) {
-    res.status(500).json(err);
-  }
-  });
+//     res.render('updateProfile', {
+//       user,
+//       logged_in: req.session.logged_in,
+//     })
+//   } catch(err) {
+//     res.status(500).json(err);
+//   }
+//   });
 
 router.get('/post', withAuth, async (req, res) => {
     try {

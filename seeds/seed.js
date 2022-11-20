@@ -1,10 +1,10 @@
 const sequelize = require('../config/connection');
 //Models included just in case and for convenience
-const { User, BlogPost, Comment } = require('../models');
-
+const { User, BlogPost } = require('../models');
+// Comment
 const seedUsers = require('./userSeed');
 const seedBlogPosts = require('./blogPostSeed');
-const seedComments = require('./commentSeed');
+// const seedComments = require('./commentSeed');
 
 
 const seedDatabase = async () => {
@@ -19,9 +19,9 @@ const seedDatabase = async () => {
 
   console.log('\n----- Blog Posts SEEDED-----\n');
 
-  await seedComments();
+  // await seedComments();
 
-  console.log('\n----- Comments SEEDED-----\n');
+  // console.log('\n----- Comments SEEDED-----\n');
 
   process.exit(0);
 
