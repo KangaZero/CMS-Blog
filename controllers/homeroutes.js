@@ -30,36 +30,24 @@ router.get('/', async (req, res) => {
 });
 
 //profile routes
-router.get('/profile', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
     const userId = req.session.user_id
   
-    res.redirect(`/profile/${userId}`)
+    res.redirect(`/dashboard/${userId}`)
   });
 
 
-  //TODO Edit
-router.get('/profile/:id', async (req, res) => {
+router.get('/dashboard/:id', withAuth, async (req, res) => {
     try {
-      // Find the logged in user based on the session ID
       const userData = await User.findByPk(req.params.id, {
         attributes: { exclude: ['password'] },
-        include: [{ model: PetAds, through: SavedPetsTag }],
-        // limit: 5
-      });
-  
-      //get petAds data where petAds.seller_id matches User.id || req.params.id
-      const userPetAdData = await PetAds.findAll({
-        where: {
-          seller_id: req.params.id
-        }
+        include: [{ model: BlogPost }, { model: Comment }],
       });
   
       const user = userData.get({ plain: true });
-      const userPetAds = userPetAdData.map(data => data.get({ plain: true }));
-  
-      res.render('profile', {
+   
+      res.render('dashboard', {
         user,
-        userPetAds,
         logged_in: req.session.logged_in,
         user_id: req.session.user_id
       });
@@ -67,6 +55,32 @@ router.get('/profile/:id', async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+router.get('/updatepost/:id', withAuth, async (req, res) => {
+    try {
+      const blogPostData = await BlogPost.findByPk(req.params.id, {
+        include: { model: User, attributes: { exclude: ['password'] } },
+      });
+  
+      const blogPost = blogPostData.get({ plain: true });
+
+      if(req.session.user_id === blogPost.user_id) {
+        res.render('updatepost', {
+            blogPost,
+            logged_in: req.session.logged_in,
+            user_id: req.session.user_id
+        });
+    } else {
+        res.redirect('/')
+    }
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  
+
 
   //TODO edit
 router.get('/updateProfile', async (req, res) => {
@@ -94,7 +108,7 @@ router.get('/updateProfile', async (req, res) => {
   }
   });
 
-  router.get('/post', withAuth, async (req, res) => {
+router.get('/post', withAuth, async (req, res) => {
     try {
       res.render('post', {
         logged_in: req.session.logged_in

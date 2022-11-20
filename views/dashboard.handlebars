@@ -1,0 +1,39 @@
+{{!-- The body and 1st div tag can be added to main.handlebars for DRY --}}
+<body class="bg-slate-200">
+    <div class="container-fill mx-auto mb-5 py-5 text-xl bg-gradient-to-t from-slate-300 to-slate-500">
+  <h2 class="text-center transform transition duration-500 hover:scale-125 hover:text-neutral-50">
+    <strong>{{user.first_name}}'s profile</strong></h2>
+</div>
+    <div id="hero" class="my-5 pl-5 md:pl-14 bg-slate-200">
+        <div id="head" class="text-3xl font-semibold">My posts:</div>
+        {{#each user.blog_posts as |post|}}
+        <div id="posts" class="flex flex-col bg-gradient-to-t from-zinc-100 to-zinc-400 text-center my-5 border-2 border-slate-900 border-solid md:w-1/2 md:container-fill mx-auto"> 
+            <div id="title-card" class="flex flex-row px-10">
+                <h2 id="post-title" class="justify-self-start text-3xl"><strong>{{post.title}}</strong></h2>
+                {{#ifEquals user.id currentUserId}}
+                    <div id="buttons" class="container text-end">
+                    <a href='/updatepost/{{post.id}}' id="edit-post-btn" class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"> 
+                        <img src="https://img.icons8.com/sf-regular-filled/36/null/edit-property.png"/>
+                    </a>
+                    <button id="delete-post-btn" class="inline-block text-gray-500 -translate-y-2 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5"> 
+                        <img src="https://img.icons8.com/fluency-systems-filled/34/null/delete-forever.png"/>
+                    </button>
+                    </div>
+                {{/ifEquals}}
+            </div>
+      
+                    <hr class="my-2 border-2 border-slate-900 border-solid">
+                <div id="content-card" class="pb-5 my-5">
+                    <p id="post-content">{{post.content}}</p>
+                </div>
+                    <hr class="my-2 border-2 border-slate-900 border-solid">
+                <div id="about-card" class="flex flex-row justify-around pb-5 px-2">
+                    <p id="about" class="container text-right mr-5">Posted on: {{{format_date post.date_created}}} </p>
+                </div>
+
+        </div>
+    {{/each}}
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
