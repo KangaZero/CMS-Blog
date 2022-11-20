@@ -1,5 +1,8 @@
 {{!-- The body tag can be added to main.handlebars for DRY --}}
 <body class="bg-slate-200">
+        <div id="post-toast" class="hidden sticky top-0 animate-bounce text-neutral-100 bg-slate-700">
+                <h2 class="text-center">Failed to update post!</h2>
+        </div>
     <div id="hero" class="flex flex-row justify-center my-5 bg-slate-200">
 
         <div class="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -30,6 +33,6 @@
 
     </div>
 
-    <script src="/js/updatepost.js"></script>
+    <script src="/js/updatePost.js"></script>
 
 </body>

@@ -64,12 +64,18 @@ router.get('/updatepost/:id', withAuth, async (req, res) => {
   
       const blogPost = blogPostData.get({ plain: true });
 
+    //checks to see if the blogPost belongs to current User
       if(req.session.user_id === blogPost.user_id) {
-        res.render('updatepost', {
-            blogPost,
-            logged_in: req.session.logged_in,
-            user_id: req.session.user_id
-        });
+
+        req.session.save(() => {
+            req.session.post_id = blogPost.id;
+            res.render('updatepost', {
+                blogPost,
+                logged_in: req.session.logged_in,
+                user_id: req.session.user_id
+            });
+        })
+        
     } else {
         res.redirect('/')
     }
@@ -83,7 +89,7 @@ router.get('/updatepost/:id', withAuth, async (req, res) => {
 
 
   //TODO edit
-router.get('/updateProfile', async (req, res) => {
+router.get('/updateprofile', async (req, res) => {
     try {
   
       const userData = await User.findOne({
