@@ -8,7 +8,7 @@
   <ol>
     <li><a href="#description">Description</a></li>
     <li><a href="#installation">Installation</a></li>
-    <li><a href="issues">Issues></a></li>
+    <li><a href="#issues">Issues</a></li>
     <!-- <li><a href="#usage">Usage</a></li> -->
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -32,7 +32,7 @@
 
 </details>
 
-*What*
+**What**
 
 CMS Blog is a website for all your coding tips posted by the community. Anyone is free to add their own tips about coding and view them as well!
 
@@ -90,7 +90,7 @@ This is distributed under the MIT License. See [LICENSE.txt](./LICENSE) for more
 
 Samuel Wai Weng Yong - <a href="mailto:samuelyongw@gmail.com"> samuelyongw@gmail.com </a>
 
-Github Link:[KangaZero](https://github.com/KangaZero)
+Github Link: [KangaZero](https://github.com/KangaZero)
 
 Repo Link: [Employee-Tracker-CMS](https://github.com/KangaZero/Employee-Tracker-CMS)
 
