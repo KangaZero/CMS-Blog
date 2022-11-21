@@ -35,7 +35,7 @@
 //               model: 'blog_post',
 //               key:'id'
 //             },
-//         },  
+//         },
 //     },
 //     {
 //         sequelize,

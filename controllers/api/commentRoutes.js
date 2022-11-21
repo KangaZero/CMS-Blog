@@ -7,11 +7,11 @@
 // router.get('/', async (req, res) => {
 //     try {
 //       const commentData = await Comment.findAll({
-//         include:[ 
+//         include:[
 //             { model: User, attributes: { exclude: ['password'] } }
 //         ]
 //       });
-      
+
 //       req.session.save(() => {
 //         // req.session.current_view_pet_id = commentData.id
 //         res.status(200).json(commentData);
@@ -24,11 +24,11 @@
 // router.get('/:id', async (req, res) => {
 //     try {
 //       const commentDatabyId = await Comment.findByPk(req.params.id,{
-//         include:[ 
+//         include:[
 //             { model: User, attributes: { exclude: ['password'] } }
 //         ]
 //       });
-      
+
 //       req.session.save(() => {
 //         req.session.comment_id = commentDatabyId.id;
 //         res.status(200).json(commentDatabyId);
@@ -97,7 +97,7 @@
 //                 // user_id: req.session.user_id
 //             },
 //           });
-      
+
 //           if (!deleteComment) {
 //             return res.status(404).json({ message: 'No such comment found!' });
 //           } else {

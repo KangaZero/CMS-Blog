@@ -10,5 +10,5 @@ router.use('/api', apiRoutes);
 module.exports = router;
 
 router.get('*', (req, res) => {
-    res.redirect('/404')
-  });
+  res.redirect('/404');
+});

@@ -19,18 +19,18 @@ module.exports = {
 
   isUser: (profileUserId, reqUserId) => {
     if (reqUserId !== profileUserId) {
-      return 
+      return;
     } else {
-    const gotoNext = (req, res, next) => {
-      next();
+      const gotoNext = (req, res, next) => {
+        next();
+      };
+      gotoNext();
     }
-    gotoNext();
-  }
   },
 
- ifEquals: (arg1, arg2, options) => {
+  ifEquals: (arg1, arg2, options) => {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-},
+  },
 
-}
+};
 
